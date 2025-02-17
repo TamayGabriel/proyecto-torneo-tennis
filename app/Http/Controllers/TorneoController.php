@@ -145,11 +145,15 @@ class TorneoController extends Controller
         }])
             ->when($fecha, function ($query, $fecha) {
                 return $query->where('fecha_inicio', '<=', $fecha)
-                    ->where('fecha_fin', '>=', $fecha);
+                        ->where('fecha_fin', '>=', $fecha);
             })
             ->when($request->sexo, fn($query, $sexo) => $query->where('sexo', $sexo))
             ->when($request->nombre, fn($query, $nombre) => $query->where('nombre', 'ILIKE', "%$nombre%"))
             ->get();
+
+        if($torneos->count()==0){
+            return response()->json('No se han encontrado torneos.');
+        }
 
         // Formatear la respuesta con los torneos y su ganador
         $respuesta = $torneos->map(function ($torneo) {

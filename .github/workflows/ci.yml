@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [8.1, 8.2, 8.3]  # Definir múltiples versiones de PHP
+        php-version: [8.2, 8.3]  # Especifica solo PHP 8.2 y superior
 
     steps:
       - name: Check out the repository
