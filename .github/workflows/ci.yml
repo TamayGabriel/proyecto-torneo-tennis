@@ -1,0 +1,30 @@
+name: PHP CI
+
+on:
+  push:
+    branches:
+      - main  # o la rama principal que estés usando
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install dependencies
+        run: |
+          composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Run tests
+        run: |
+          php artisan test
