@@ -12,14 +12,18 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        php-version: [8.1, 8.2, 8.3]  # Definir múltiples versiones de PHP
+
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      - name: Set up PHP 8.2
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: ${{ matrix.php-version }}
 
       - name: Install dependencies
         run: |
